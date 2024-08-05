@@ -1,0 +1,14 @@
+{
+  "name": "shaswata-backend",
+  "version": "1.0.0",
+  "description": "a backend project to lear and grow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "shaswata",
+  "license": "ISC"
+}
