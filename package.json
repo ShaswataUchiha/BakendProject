@@ -2,13 +2,22 @@
   "name": "shaswata-backend",
   "version": "1.0.0",
   "description": "a backend project to lear and grow",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node ./node_modules/nodemon/bin/nodemon.js -r dotenv/config --experimental-json-modules src/index.js"
   },
   "keywords": [
     "javascript"
   ],
   "author": "shaswata",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
 }
