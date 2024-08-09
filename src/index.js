@@ -6,16 +6,18 @@ dotenv.config({
 })
 
 connectDatabase()
-//     try {
-//         await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`);
-//         app.on((error) => {
-//             console.log("Database error: " + error)
-//         })
-//         app.listen(process.env.PORT, () => {
-//             console.log("App is listening on port " + process.env.PORT)
-//         })
-//     } catch (error) {
-//         console.log("Error: " + error)
-//         throw new Error
-//     }
-// })();
+.then(() => {
+    app.on("error", (err) => {
+        console.error(`Error in server: ${err.stack}`);
+        throw err;
+    })
+
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(
+            console.log(`Server started at ${process.env.PORT}`)
+        )
+    })
+})
+.catch((err) => {
+    console.log("MONGO db connection error : " + err)
+})
