@@ -54,7 +54,7 @@ userSchema.pre("save", async function (next) {
   // If password has already been not modified before saving then rewtuen
   if (!this.isModified("password")) return next();
 
-  this.password = bcrypt.hash(this.password);
+  this.password = await bcrypt.hash(this.password);
   next();
 });
 
