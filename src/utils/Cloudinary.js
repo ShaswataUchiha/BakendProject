@@ -7,17 +7,19 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadOnCloud = async (localFilePaath) => {
+const uploadOnCloudinary = async (localFilePath) => {
     try {
-      if(!localFilePaath) return null;
+      if(!localFilePath) return null;
       
-      const response = await cloudinary.uploader.upload(localFilePaath, {
+      const response = await cloudinary.uploader.upload(localFilePath, {
         resource_type : 'auto'
       })
-      console.log("File is uploaded successfully", response.url)
-      return response
+      // console.log("File is uploaded successfully", response.url)
+      // return response
+      fs.unlinkSync(localFilePath)
+      return response;
     } catch (error) {
-        fs.unlinkSync(localFilePaath) 
+        fs.unlinkSync(localFilePath) 
         // remove the locally saed temporray file as the upload oertaion ot failed
         console.log("Error while uploading to cloudinary", error); 
         return null;    
@@ -25,5 +27,5 @@ const uploadOnCloud = async (localFilePaath) => {
 }
 
 
-export { uploadOnCloud }  // Exporting the function for use in other files.
+export { uploadOnCloudinary }  // Exporting the function for use in other files.
 

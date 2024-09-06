@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
+// const bcrypt = require('bcrypt');
+
 
 const userSchema = new Schema(
   {
@@ -19,7 +21,7 @@ const userSchema = new Schema(
       lowercase: true,
       trim: true,
     },
-    fullname: {
+    fullName: {
       type: String,
       required: true,
       trim: true,
@@ -29,18 +31,18 @@ const userSchema = new Schema(
       type: String, // Cloudinary Url
       required: true,
     },
-    coverimage: {
+    coverImage: {
       type: String,
     },
     watchHistory: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Video",
       },
     ],
     password: {
       type: String,
-      required: true,
+      required: [true, 'Password is required']
     },
     refreshToken: {
       type: String,
@@ -54,8 +56,8 @@ userSchema.pre("save", async function (next) {
   // If password has already been not modified before saving then rewtuen
   if (!this.isModified("password")) return next();
 
-  this.password = await bcrypt.hash(this.password);
-  next();
+  this.password = await bcrypt.hash(this.password, 10)
+  next()
 });
 
 userSchema.methods.isPasswordCorrect = async function (password) {

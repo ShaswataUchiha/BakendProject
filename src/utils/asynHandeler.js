@@ -8,9 +8,6 @@ const asyncHandler = (requestHandeler) => {
 
 
 
-export {asyncHandler}
-
-
 //TryCatch MEthod
 // const asyncHandler = (fn) => async(req, res, next) => {
 //     try {
@@ -22,3 +19,5 @@ export {asyncHandler}
 //         })
 //     }
 // }
+
+export {asyncHandler}
