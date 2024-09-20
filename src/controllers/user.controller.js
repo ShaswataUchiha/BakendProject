@@ -3,6 +3,9 @@ import {ApiError} from "../utils/ApiError.js";
 import {User} from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/Cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
+import jwt from "jsonwebtoken"
+import mongoose from "mongoose";
+
 
 
 const generateAcessTokenAndRefreshToken = async(userId) => {
@@ -109,13 +112,14 @@ const loginUser = asyncHandler(async(req, res) => {
     // return res
 
     const {email, username, password} = req.body
+    console.log(email)
 
-    if(!username || !email){
+    if(!username && !email){
         throw new ApiError(400, "Email and username are required")
     }
 
     const user = await User.findOne({
-        $or : [{username}, {password}]
+        $or : [{username}, {email}]
     })
 
     if(!user){
